@@ -1,28 +1,10 @@
-const config = require('../config').common.database;
+const mongoose = require('mongoose');
 
-module.exports = {
-  development: {
-    username: config.username,
-    password: config.password,
-    database: config.name,
-    host: config.host,
-    dialect: 'postgres',
-    logging: true
-  },
-  testing: {
-    username: config.username,
-    password: config.password,
-    database: config.name,
-    host: config.host,
-    dialect: 'postgres',
-    logging: false
-  },
-  production: {
-    username: config.username,
-    password: config.password,
-    database: config.name,
-    host: config.host,
-    dialect: 'postgres',
-    logging: false
-  }
-};
+mongoose.Promise = global.Promise;
+
+mongoose.connect(
+  'mongodb+srv://graphql-user:wHV3PvaCJH8oTKsS@cluster0.nxvup.mongodb.net/LISApp?retryWrites=true&w=majority',
+  { useNewUrlParser: true }
+);
+
+module.exports = mongoose;

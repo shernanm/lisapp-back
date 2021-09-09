@@ -1,12 +1,12 @@
 const { RedisCache } = require('apollo-server-cache-redis');
 const { createHash } = require('crypto');
 
-const config = require('../../config').common.redisCache;
+// const config = require('../../config').common.redisCache;
 const logger = require('../logger');
 
 const cache = new RedisCache({
-  host: config.host,
-  db: config.name,
+  host: 'localhost',
+  db: 'mongoatlas',
   maxRetriesPerRequest: 2,
   reconnectOnError: err => {
     const targetError = 'READONLY';
@@ -34,7 +34,7 @@ const findInCache = (stringKey, deserialize) => {
     );
 };
 
-const updateCache = (stringKey, value, serialize, ttl = config.timeToLive) => {
+const updateCache = (stringKey, value, serialize, ttl = 0) => {
   const key = createCacheKey(stringKey);
   const stringValue = serialize ? serialize(value) : JSON.stringify(value);
   return ttl ? cache.set(key, stringValue, { ttl }) : cache.set(key, stringValue);
